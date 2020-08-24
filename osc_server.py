@@ -21,14 +21,15 @@ def print_compute_handler(unused_addr, args, volume):
 if __name__ == "__main__":
   parser = argparse.ArgumentParser()
   parser.add_argument("--ip",
-      default="localhost", help="The ip to listen on")
+      default="0.0.0.0", help="The ip to listen on")
   parser.add_argument("--port",
       type=int, default=10000, help="The port to listen on")
   args = parser.parse_args()
 
   dispatcher = dispatcher.Dispatcher()
   dispatcher.map("*", print)
-  dispatcher.map("/volume", print_volume_handler, "Volume")
+  dispatcher.map("/0/*", print)
+  dispatcher.map("/1/*", print_volume_handler, "Volume")
   dispatcher.map("/logvolume", print_compute_handler, "Log volume", math.log)
   dispatcher.set_default_handler(print)
 

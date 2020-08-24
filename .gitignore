@@ -1,0 +1,5 @@
+*.tar
+__pycache__
+.DS_STORE
+ignore
+magenta-install.sh

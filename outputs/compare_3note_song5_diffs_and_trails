@@ -1,0 +1,142 @@
+new_3note_section0 vs new_3note_section0e
+(e has the second bar of melody offset by a half step up)
+between
+3.101513
+
+new_3note_section0 vs new_3note_section0d
+(d has the melody offset by a half step up)
+between
+6.5999985
+
+new_3note_section0 vs new_3note_section0c
+(c has the melody offset by half a beat)
+between
+7.5683746
+
+new_3note_section0 vs new_3note_section0b
+(b has measures 1 and 2 swapped)
+between
+7.613102
+
+Here we compare sections to the previous section in the sequence,
+but also compare sections to each other.
+
+We're looking to see what the range of differences can be
+and if the euclidean distances map intuitively to the distances
+that we percieve to exist across the melodies.
+
+
+between
+9.779203
+
+new_3note_section1.mid diff
+6.0613313
+new_song5_section1.mid diff
+8.150574
+between
+8.676809
+
+new_3note_section2.mid diff
+6.0657086
+new_song5_section2.mid diff
+9.532637
+between
+9.072831
+
+new_3note_section3.mid diff
+5.8205385
+new_song5_section3.mid diff
+8.357287
+between
+8.640018
+
+new_3note_section4.mid diff
+6.6968136
+new_song5_section4.mid diff
+8.335553
+between
+8.581133
+
+new_3note_section5.mid diff
+6.554137
+new_song5_section5.mid diff
+8.75961
+between
+8.849832
+
+new_3note_section6.mid diff
+6.6951666
+new_song5_section6.mid diff
+9.560442
+between
+8.116344
+
+new_3note_section7.mid diff
+7.329704
+new_song5_section7.mid diff
+6.398067
+between
+8.247645
+
+new_3note_section8.mid diff
+7.489861
+new_song5_section8.mid diff
+6.8257895
+between
+9.971159
+
+new_3note_section9.mid diff
+6.9527125
+new_song5_section9.mid diff
+10.122765
+between
+8.0291605
+
+new_3note_section13.mid diff
+6.6472354
+new_song5_section13.mid diff
+9.47679
+between
+8.472267
+
+new_3note_section14.mid diff
+6.8868036
+new_song5_section14.mid diff
+7.3329153
+between
+8.068755
+
+new_3note_section15.mid diff
+5.2922773
+new_song5_section15.mid diff
+6.851148
+between
+8.971225
+
+new_3note_section16.mid diff
+6.1129284
+new_song5_section16.mid diff
+7.263049
+between
+8.554859
+
+new_3note_section17.mid diff
+7.115412
+new_song5_section17.mid diff
+6.364982
+between
+8.959328
+
+new_3note_section20.mid diff
+7.586268
+new_song5_section20.mid diff
+6.960092
+between
+8.291158
+
+new_3note_section22.mid diff
+5.7490964
+new_song5_section22.mid diff
+6.6420407
+between
+8.216936

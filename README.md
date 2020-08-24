@@ -22,7 +22,8 @@ non-magenta section. to run:
 --checkpoint_file=cat-mel_2bar_big.tar \
 --input_midi_1=transcription.mid \
 --input_midi_2=generated/b.mid \
---output_dir=generated```
+--output_dir=generated
+```
 
 if you want to use the original MusicVAE it may have been installed
 to your path:
@@ -34,7 +35,8 @@ to your path:
 --num_outputs=5 \
 --input_midi_1=transcription.mid \
 --input_midi_2=generated/b.mid \
---output_dir=generated```
+--output_dir=generated
+```
 
 
 currently:   

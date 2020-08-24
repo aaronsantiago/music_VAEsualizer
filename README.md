@@ -36,6 +36,10 @@ to your path:
 --input_midi_2=generated/b.mid \
 --output_dir=generated```
 
+midi-.py will be a real-time version of this analysis, currently it
+plays a metronome (that supposedly accounts for drift!) and also
+waits for midi input on a hardcoded midi bus ([virtual midi bus](https://help.ableton.com/hc/en-us/articles/209774225-How-to-setup-a-virtual-MIDI-bus))
+
 
 currently:
 osc_client.py/osc_server.py testing OSC with python, not notable

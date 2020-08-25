@@ -1,44 +1,13 @@
 
-# magenta imports
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-
-import os
-import sys
-
-from magenta.models.music_vae import configs
-from magenta.models.music_vae import TrainedModel
-import note_seq
-import numpy as np
-import tensorflow.compat.v1 as tf
-# end magenta imports
-
+# # magenta imports
+# from __future__ import absolute_import
+# from __future__ import division
 import mido
 import asyncio
 import time
 from metronome import Metronome
 import pygame
 from process_midi import MVAEsMidiProcessor as MProcessor
-
-
-#########################################################################################
-# BEGIN MAGENTA CODE HERE -----------------------------------------------------------
-#########################################################################################
-print ("setting up magenta model")
-config = configs.CONFIG_MAP["cat-mel_2bar_big"]
-config.data_converter.max_tensors_per_item = None
-
-checkpoint_dir_or_path = \
-        os.path.expanduser("cat-mel_2bar_big.tar")
-print ("loading model")
-model = TrainedModel(config, batch_size=min(8, 5),
-                     checkpoint_dir_or_path=checkpoint_dir_or_path)
-print ("loading model success!")
-
-#########################################################################################
-# END MAGENTA CODE HERE -----------------------------------------------------------
-#########################################################################################
 
 print ("Setting up pygame mixer")
 # pygame mixer config
@@ -56,7 +25,7 @@ sounds = [measure_sound, click_sound,click_sound,click_sound, click_sound,click_
 print ("Setting up midi processing system")
 midiProcessor = MProcessor("test")
 midiProcessor.autoWrite = False
-latestFileToProcess = ""
+
 # metronome callback
 async def do_beat():
     global current_beat, midiProcessor
@@ -65,17 +34,6 @@ async def do_beat():
     if current_beat % 8 == 0 and current_beat > 0:
         print ("Writing last 8 beats to file")
         midiProcessor.writeCurrentMidi()
-        latestFileToProcess = midiProcessor.getLastMidiName()
-
-    if current_beat % 8 == 1 and current_beat > 1:
-        print ("Reloading file as note sequence")
-        input_midi_file = os.path.expanduser(midiProcessor.getLastMidiName())
-        input_midi_seq = note_seq.midi_file_to_note_sequence(input_midi_file)
-
-        print ("Encoding to vector")
-        (_, mu, _) = model.encode([input_midi_seq])
-        print(mu[0])
-        print ("Encode success! Vector above")
 
 lastMessageTime = time.time()
 # from https://stackoverflow.com/questions/56277440/how-can-i-integrate-python-mido-and-asyncio
@@ -83,9 +41,11 @@ def make_stream():
     loop = asyncio.get_event_loop()
     queue = asyncio.Queue()
     def callback(message):
+        print("rcv message", flush=True)
         loop.call_soon_threadsafe(queue.put_nowait, message)
     async def stream():
         while True:
+            print("waitin", flush=True)
             yield await queue.get()
     return callback, stream()
 async def print_messages():
@@ -101,6 +61,7 @@ async def print_messages():
         lastMessageTime = thisMessageTime
         print(message)
         midiProcessor.processMessage(message)
+    print("exited???", flush=True)
 
 # create the metronome
 callbacks = [do_beat]
@@ -111,7 +72,6 @@ metronome = Metronome(tempo, callbacks)
 print ("Starting midi input")
 # https://docs.python.org/3/library/asyncio-task.html#running-tasks-concurrently 
 async def main():
-    # Schedule three calls *concurrently*:
     await asyncio.gather(
         metronome.start(),
         print_messages(),

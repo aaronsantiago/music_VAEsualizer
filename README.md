@@ -17,7 +17,8 @@ music_vae_generate.py was cannibalized into playing with the raw
 melody -> vector generation, so take a look at it and look for the
 non-magenta section. to run:
 
-```python music_vae_generate.py \
+```
+python music_vae_generate.py \
 --config=cat-mel_2bar_big \
 --checkpoint_file=cat-mel_2bar_big.tar \
 --input_midi_1=transcription.mid \
@@ -28,7 +29,8 @@ non-magenta section. to run:
 if you want to use the original MusicVAE it may have been installed
 to your path:
 
-```music_vae_generate \
+```
+music_vae_generate \
 --config=cat-mel_2bar_big \
 --checkpoint_file=cat-mel_2bar_big.tar \
 --mode=interpolate \

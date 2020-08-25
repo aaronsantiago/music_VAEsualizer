@@ -59,6 +59,9 @@ class MVAEsMidiProcessor:
     self.mid2.tracks.append(self.track)
     self.totalTime = 0
 
+  def getLastMidiName(self):
+    return self.outputFileBaseName + ('%d.mid' % (self.numSongs - 1))
+
 
 if __name__ == "__main__":
 

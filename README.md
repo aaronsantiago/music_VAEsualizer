@@ -40,7 +40,11 @@ to your path:
 
 midi-.py will be a real-time version of this analysis, currently it
 plays a metronome (that supposedly accounts for drift!) and also
-waits for midi input on a hardcoded midi bus ([virtual midi bus](https://help.ableton.com/hc/en-us/articles/209774225-How-to-setup-a-virtual-MIDI-bus))
+waits for midi input on a hardcoded midi bus ([virtual midi bus](https://help.ableton.com/hc/en-us/articles/209774225-How-to-setup-a-virtual-MIDI-bus))   
+it pipes this resulting file into musicVAE, but currently it blocks
+the MIDI thread and subsequently crashes it. next up is to change
+magenta to work on a separate thread so it doesn't interact with the
+MIDI transcription or the metronome.
 
 
 currently:   

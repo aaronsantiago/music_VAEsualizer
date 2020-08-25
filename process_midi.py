@@ -11,6 +11,7 @@ class MVAEsMidiProcessor:
   totalTime = 0
   numSongs = 0
   track = None
+  autoWrite = True
   outputFileBaseName = ""
   def __init__(self, outputFileBaseName):
     self.mid2 = mido.MidiFile()
@@ -42,19 +43,21 @@ class MVAEsMidiProcessor:
         self.track.append(mido.Message('note_off', note=self.lastNoteOnMsg.note, velocity=self.lastNoteOnMsg.velocity, time=tickTime))
 
         # If we're past 2 measures, write a new file
-        if self.totalTime > 400 * 8:
-          self.mid2.save(self.outputFileBaseName + ('%d.mid' % self.numSongs))
-          self.numSongs += 1
-          self.mid2 = mido.MidiFile()
-          self.track = mido.MidiTrack()
-          self.mid2.tracks.append(self.track)
-          self.totalTime = 0
-
+        if self.totalTime > 400 * 8 and self.autoWrite:
+          self.writeCurrentMidi()
       self.lastNoteOnMsg = msg
       self.timeSinceLastMsg = 0
     else:
       # print(msg)
       self.timeSinceLastMsg += msg.time
+
+  def writeCurrentMidi(self):
+    self.mid2.save(self.outputFileBaseName + ('%d.mid' % self.numSongs))
+    self.numSongs += 1
+    self.mid2 = mido.MidiFile()
+    self.track = mido.MidiTrack()
+    self.mid2.tracks.append(self.track)
+    self.totalTime = 0
 
 
 if __name__ == "__main__":

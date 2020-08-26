@@ -37,7 +37,7 @@ print ("loading model success!")
 # END MAGENTA CODE HERE -----------------------------------------------------------
 #########################################################################################
 
-def encode_to_vector(name):
+def encode_to_vector(name, cb):
     print ("encoding file " + name)
     print ("Reloading file as note sequence", flush=True)
     input_midi_file = os.path.expanduser(name)
@@ -48,20 +48,29 @@ def encode_to_vector(name):
     print(mu[0], flush=True)
     print ("Encode success! Vector above", flush=True)
 
-filePrefix = "test"
-currentFile = 0
-lastProcessed = -1
+    if cb != None: cb(mu[0])
 
-while True:
-    name = filePrefix + ("%d.mid" % (currentFile))
-    nextName = filePrefix + ("%d.mid" % (currentFile + 1))
-    if os.path.exists(nextName):
-        currentFile += 1
-    elif lastProcessed < currentFile:
-        lastProcessed = currentFile
-        try:
-            encode_to_vector(name)
-        except Exception:
-            traceback.print_exc()
-    else:
-        time.sleep(.01)
+def begin_infinite_polling(cb, custSleep):
+    filePrefix = "test"
+    currentFile = 0
+    lastProcessed = -1
+    print ("beginning polling")
+    while True:
+        name = filePrefix + ("%d.mid" % (currentFile))
+        nextName = filePrefix + ("%d.mid" % (currentFile + 1))
+        if os.path.exists(nextName):
+            currentFile += 1
+        elif lastProcessed < currentFile and os.path.exists(name):
+            lastProcessed = currentFile
+            try:
+                encode_to_vector(name, cb)
+            except Exception:
+                traceback.print_exc()
+        else:
+            if custSleep != None:
+                custSleep(.01)
+            else:
+                time.sleep(.01)
+
+if __name__ == "__main__":
+    begin_infinite_polling(None)

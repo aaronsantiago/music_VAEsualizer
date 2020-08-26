@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>P5.js Example</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.14/p5.js"></script>
+        <script type="text/javascript" src="/eel.js"></script>
+
+<style>
+#sketch-div {
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+</style>
+
+<script>
+let x, y;
+let ex, ey;
+function setup(){
+    var canvas = createCanvas(windowWidth, windowHeight);
+    ex = x = windowWidth/2;
+    ey = y = windowHeight/2;
+    canvas.parent('sketch-div');
+    background(0,0,0);
+    // frameRate(10);
+}
+
+function draw(){
+    fill(0, 42 , 218);
+    stroke(0, 42 ,218);
+    let fx = ex = (x - ex) / 20 + ex;
+    let fy = ey = (y - ey) / 20 + ey;
+
+    while (fx < 0) fx += windowWidth;
+    while (fy < 0) fy += windowHeight;
+    fx = fx % windowWidth;
+    fy = fy % windowHeight;
+
+    ellipse(fx, fy, 50, 50);
+    ellipse(fx + windowWidth, fy, 50, 50);
+    ellipse(fx - windowWidth, fy, 50, 50);
+    ellipse(fx, fy + windowHeight, 50, 50);
+    ellipse(fx, fy - windowHeight, 50, 50);
+    fill(0,0,0,9);
+    rect(0,0,windowWidth,windowHeight);
+}
+
+eel.expose(moveDot);
+function moveDot(distance) {
+    distance = distance * distance * 3;
+    console.log("moving dot");
+    console.log(distance);
+    let angle = Math.random() * Math.PI * 2;
+    x += Math.cos(angle) * distance;
+    y += Math.sin(angle) * distance;
+
+}
+
+function mouseClicked() {
+    moveDot(Math.random() * 10);
+}
+
+function windowResized() {
+   resizeCanvas(windowWidth, windowHeight);
+}
+</script>
+
+    </head>
+    <div id="sketch-div"></div>
+    </body>
+</html>
